@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <base href="/"/>
+    <title>请求流程 - Laravel 开发笔记</title>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+</head>
+<body>
+<main>
+    <article>
+        <h1>请求流程</h1>
+
+        <h2>HTTP 请求</h2>
+        <ol>
+            <li><code>public/index.php</code> - 入口</li>
+            <li><code>vendor/autoload.php</code> - Composer 自动加载库</li>
+            <li>
+                <code>bootstrap/app.php</code> - 通过服务容器实现依赖注入<br/>
+                <code>Illuminate\Foundation\Application::__construct</code> 注册基础 Service Provider，执行错误处理、日志记录、环境设定等配置操作
+            </li>
+            <li>
+                <code>app/Http/Kernel.php</code> - 处理 HTTP 请求
+                <ol>
+                    <li>
+                        注册 config/app.php 中定义的 Service Provider
+                        <pre><code>Illuminate\Foundation\Http\Kernel::handle
+    Illuminate\Foundation\Http\Kernel::sendRequestThroughRouter
+        Illuminate\Foundation\Http\Kernel::bootstrap
+            Illuminate\Foundation\Application::bootstrapWith
+                Illuminate\Foundation\Bootstrap\RegisterProviders::bootstrap
+                    Illuminate\Foundation\Application::registerConfiguredProviders</code></pre>
+                    </li>
+                    <li>通过定义 Middleware 来处理 session、维护模式、跨域请求等预备工作</li>
+                    <li>根据路由规则找到处理业务逻辑的类，处理 request 返回 response</li>
+                    <li>通过预定义 Middleware 的 terminate 方法来处理输出</li>
+                </ol>
+            </li>
+        </ol>
+
+        <h2>CLI 请求</h2>
+        <ol>
+            <li><code>artisan</code> - 入口</li>
+            <li><code>vendor/autoload.php</code> - Composer 自动加载库</li>
+            <li>
+                <code>bootstrap/app.php</code> - 通过服务容器实现依赖注入<br/>
+                <code>Illuminate\Foundation\Application::__construct</code> 注册基础 Service Provider，执行错误处理、日志记录、环境设定等配置操作
+            </li>
+            <li>
+                <code>app/Console/Kernel.php</code> - 处理命令行请求
+                <ol>
+                    <li>
+                        注册 config/app.php 中定义的 Service Provider
+                        <pre><code>Illuminate\Foundation\Console\Kernel::handle
+    Illuminate\Foundation\Console\Kernel::bootstrap
+        Illuminate\Foundation\Application::bootstrapWith
+            Illuminate\Foundation\Bootstrap\RegisterProviders::bootstrap
+                Illuminate\Foundation\Application::registerConfiguredProviders</code></pre>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+    </article>
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
+</body>
+</html>

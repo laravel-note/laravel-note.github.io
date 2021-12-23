@@ -1,0 +1,40 @@
+[
+  {
+    "title": "常用代码",
+    "path" : "notes/codes",
+    "children": [
+      {
+        "title": "测试 Debug",
+        "path": "notes/codes/debug.html"
+      }
+    ]
+  },
+  {
+    "title": "原理剖释",
+    "path" : "notes/dig",
+    "children": [
+      {
+        "title": "请求流程",
+        "path": "notes/dig/lifecycle.html"
+      }
+    ]
+  },
+  {
+    "title": "附录",
+    "path" : "notes/appendices",
+    "children": [
+      {
+        "title": "常用命令及参数",
+        "path": "notes/appendices/cli.html"
+      },
+      {
+        "title": "资源索引",
+        "path": "/"
+      },
+      {
+        "title": "组件配置文件",
+        "path": "notes/appendices/config.html"
+      }
+    ]
+  }
+]
