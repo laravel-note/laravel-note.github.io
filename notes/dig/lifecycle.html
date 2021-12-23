@@ -25,7 +25,7 @@
                 <code>app/Http/Kernel.php</code> - 处理 HTTP 请求
                 <ol>
                     <li>
-                        注册 config/app.php 中定义的 Service Provider
+                        注册 <code>config/app.php</code> 中定义的 Service Provider
                         <pre><code>Illuminate\Foundation\Http\Kernel::handle
     Illuminate\Foundation\Http\Kernel::sendRequestThroughRouter
         Illuminate\Foundation\Http\Kernel::bootstrap
@@ -34,8 +34,8 @@
                     Illuminate\Foundation\Application::registerConfiguredProviders</code></pre>
                     </li>
                     <li>通过定义 Middleware 来处理 session、维护模式、跨域请求等预备工作</li>
-                    <li>根据路由规则找到处理业务逻辑的类，处理 request 返回 response</li>
-                    <li>通过预定义 Middleware 的 terminate 方法来处理输出</li>
+                    <li>根据路由规则（<code>App\Providers\RouteServiceProvider</code>）找到处理业务逻辑的类，处理 request 返回 response</li>
+                    <li>通过预定义 Middleware 的 <code>terminate</code> 方法处理输出</li>
                 </ol>
             </li>
         </ol>
