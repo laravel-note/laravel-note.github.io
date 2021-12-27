@@ -21,9 +21,17 @@
         <h2>Laravel 的 ORM</h2>
         <p>Laravel 封装了一套自己的 ORM，有 Model、Relationships、Collection 几个主要概念，基本是围绕 Model 对数据进行操作。</p>
 
-        <p>Laravel 的 model 继承 <code>\Illuminate\Database\Eloquent\Model</code> 类。这里整理一些常见用法，详情参考官网文档
+        <p>Laravel 的 Model 继承 <code>\Illuminate\Database\Eloquent\Model</code> 类，详情参考官网文档
             <a target="_blank" href="https://laravel.com/docs/5.5/eloquent">https://laravel.com/docs/5.5/eloquent</a>。
         </p>
+
+        <p>Laravel 的 Collection 继承 <code>\Illuminate\Database\Eloquent\Collection</code> 类，详情参考官网文档
+            <a target="_blank" href="https://laravel.com/docs/5.5/collections">https://laravel.com/docs/5.5/collections</a>。
+        </p>
+
+        <h3>数据库检索</h3>
+
+        <p>下面整理了一些常见的数据库检索方法：</p>
 
         <p>以官网举的 Flight 类为例，可通过以下【静态方法】直接获得 Model：</p>
         <table class="list">
