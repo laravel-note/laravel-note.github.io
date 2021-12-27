@@ -16,6 +16,10 @@
       {
         "title": "请求流程",
         "path": "notes/dig/lifecycle.html"
+      },
+      {
+        "title": "Eloquent ORM",
+        "path": "notes/dig/eloquent-orm.html"
       }
     ]
   },
