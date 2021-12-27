@@ -81,6 +81,10 @@
         <p>可通过以下【静态方法】生成 Query Builder，再由其 <code>get</code> 方法获得 Collection：</p>
         <table class="list">
             <tr>
+                <th><code>Flight::query()</code></th>
+                <td>返回一个新的 Query Builder 实例</td>
+            </tr>
+            <tr>
                 <th><code>Flight::on($connection = null)</code></th>
                 <td>根据指定 connection 创建一个新的 Query Builder 实例</td>
             </tr>
