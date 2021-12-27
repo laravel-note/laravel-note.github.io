@@ -98,6 +98,92 @@
             </tr>
         </table>
 
+        <h3>关联数据检索</h3>
+
+        <p>Laravel 定义了专门的方法处理数据表关联。</p>
+
+        <table class="list">
+            <tr>
+                <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-one">一对一</a>
+                </th>
+                <td>
+                    <code>hasOne($related, $foreignKey = null, $localKey = null)</code><br/>
+                    其 <code>getResults</code> 方法返回 Model
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-many">一对多</a>
+                </th>
+                <td>
+                    <code>hasMany($related, $foreignKey = null, $localKey = null)</code><br/>
+                    其 <code>getResults</code> 方法返回 Collection
+                </td>
+            </tr>
+            <tr>
+                <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-many-inverse">一对多
+                    - 反向</a></th>
+                <td>
+                    <code>belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)</code><br/>
+                    其 <code>getResults</code> 方法返回 Model
+                </td>
+            </tr>
+            <tr>
+                <th><a target="_blank"
+                       href="https://laravel.com/docs/5.5/eloquent-relationships#has-many-through">一对多链接</a></th>
+                <td>
+                    <code>hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null,
+                        $secondLocalKey = null)</code><br/>
+                    其 <code>getResults</code> 方法返回 Collection
+                </td>
+            </tr>
+            <tr>
+                <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#polymorphic-relations">一对多
+                    - 多态关联</a></th>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>
+                            <code>morphTo($name = null, $type = null, $id = null)</code><br/>
+                            其 <code>getResults</code> 方法返回 Model
+                        </li>
+                        <li>
+                            <code>morphMany($related, $name, $type = null, $id = null, $localKey = null)</code><br/>
+                            其 <code>getResults</code> 方法返回 Collection
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#many-to-many">多对多</a>
+                </th>
+                <td>
+                    <code>belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null,
+                        $parentKey = null, $relatedKey = null, $relation = null)</code><br/>
+                    其 <code>getResults</code> 方法返回 Collection
+                </td>
+            </tr>
+            <tr>
+                <th><a target="_blank"
+                       href="https://laravel.com/docs/5.5/eloquent-relationships#many-to-many-polymorphic-relations">多对多
+                    - 多态关联</a></th>
+                <td>
+                    <ul style="margin: 0;">
+                        <li>
+                            <code>morphToMany($related, $name, $table = null, $foreignPivotKey = null,
+                                $relatedPivotKey = null, $parentKey = null,
+                                $relatedKey = null, $inverse = false)</code><br/>
+                            其 <code>getResults</code> 方法返回 Collection
+                        </li>
+                        <li>
+                            <code>morphedByMany($related, $name, $table = null, $foreignPivotKey = null,
+                                $relatedPivotKey = null, $parentKey = null, $relatedKey = null)</code><br/>
+                            其 <code>getResults</code> 方法返回 Collection
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
     </article>
 </main>
 <script src="web/js/lib/require.js" type="text/javascript"></script>
