@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <base href="/"/>
     <title>Eloquent ORM - Laravel 开发笔记</title>
-    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../../web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../web/css/notes.css"/>
 </head>
 <body>
 <main>
@@ -58,19 +58,10 @@
                     填充的新实例，并创建一条对应的数据库记录
                 </td>
             </tr>
-            <tr>
-                <th><code>Flight::create(array $attributes = [])</code></th>
-                <td>为数据库创建一条由 <code>$attributes</code> 填充的新纪录，并返回对应实例</td>
-            </tr>
-            <tr>
-                <th><code>Flight::updateOrCreate(array $attributes, array $values = [])</code></th>
-                <td>根据 <code>$attributes</code> 数组检索数据库，找到结果则以 <code>$values</code> 进行更新，否则创建一条由
-                    <code>$attributes</code> 及 <code>$values</code> 填充的新纪录
-                </td>
-            </tr>
         </table>
 
-        <p>可通过以下【静态方法】创建 Query Builder：</p>
+        <p>可通过以下【静态方法】创建 Query Builder（<code>\Illuminate\Database\Eloquent\Builder</code>）：
+        </p>
         <table class="list">
             <tr>
                 <th><code>Flight::query()</code></th>
@@ -196,10 +187,63 @@
             </tr>
         </table>
 
+        <h3>数据更新</h3>
+
+        <p>Laravel 为 Model 定义了如下【静态方法】来更新数据库：</p>
+        <table class="list">
+            <tr>
+                <th><code>Flight::create(array $attributes = [])</code></th>
+                <td>为数据库创建一条由 <code>$attributes</code> 填充的新纪录，并返回对应实例</td>
+            </tr>
+            <tr>
+                <th><code>Flight::updateOrCreate(array $attributes, array $values = [])</code></th>
+                <td>根据 <code>$attributes</code> 数组检索数据库，找到结果则以 <code>$values</code> 进行更新，否则创建一条由
+                    <code>$attributes</code> 及 <code>$values</code> 填充的新纪录
+                </td>
+            </tr>
+        </table>
+
+        <p>对 Model 实例可使用如下方法：</p>
+        <table class="list">
+            <tr>
+                <th><code>save(array $options = [])</code></th>
+                <td>将当前实例的数据保存到数据库，成功时返回 <code>true</code>，否则返回 <code>false</code></td>
+            </tr>
+            <tr>
+                <th><code>saveOrFail(array $options = [])</code></th>
+                <td>将当前实例的数据保存到数据库，成功时返回 <code>true</code>，否则抛出异常</td>
+            </tr>
+            <tr>
+                <th><code>update(array $attributes = [], array $options = [])</code></th>
+                <td>相当于先 <code>fill($attributes)</code>，再 <code>save($options)</code></td>
+            </tr>
+            <tr>
+                <th><code>push()</code></th>
+                <td>将当前实例及其关联实例的数据保存到数据库，成功时返回 <code>true</code>，否则返回 <code>false</code></td>
+            </tr>
+        </table>
+
+        <p>也可以通过 Query Builder 的 <code>update(array $values)</code> 方法进行批量更新。</p>
+
+        <h3>魔术方法</h3>
+        <p>Laravel 为 Model 定义了魔术方法 <code>__call</code> 和 <code>__callStatic</code>，这使一些不在 Model
+            类中直接定义的方法也得以执行。比如，下述方法实际是在 Query Builder 中定义的：</p>
+        <ul>
+            <li><code>find</code></li>
+            <li><code>findOrFail</code></li>
+            <li><code>findOrNew</code></li>
+            <li><code>firstOrNew</code></li>
+            <li><code>firstOrCreate</code></li>
+            <li><code>where</code></li>
+            <li><code>orWhere</code></li>
+            <li><code>create</code></li>
+            <li><code>updateOrCreate</code></li>
+        </ul>
+
     </article>
 </main>
-<script src="web/js/lib/require.js" type="text/javascript"></script>
-<script src="web/js/require-config.js" type="text/javascript"></script>
-<script src="web/js/notes.js" type="text/javascript"></script>
+<script src="../../web/js/lib/require.js" type="text/javascript"></script>
+<script src="../../web/js/require-config.js" type="text/javascript"></script>
+<script src="../../web/js/notes.js" type="text/javascript"></script>
 </body>
 </html>
