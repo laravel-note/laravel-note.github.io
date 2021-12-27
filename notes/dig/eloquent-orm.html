@@ -78,7 +78,7 @@
             </tr>
         </table>
 
-        <p>可通过以下【静态方法】生成 Query，再由其 <code>get</code> 方法获得 Collection：</p>
+        <p>可通过以下【静态方法】生成 Query Builder，再由其 <code>get</code> 方法获得 Collection：</p>
         <table class="list">
             <tr>
                 <th><code>Flight::where($column, $operator = null, $value = null, $boolean = 'and')</code></th>
@@ -86,8 +86,12 @@
             </tr>
         </table>
 
-        <p>可通过 Collection 的以下方法获得 Model：</p>
+        <p>可通过 Query Builder 的以下方法获得 Model：</p>
         <table class="list">
+            <tr>
+                <th><code>first($columns = ['*'])</code></th>
+                <td>返回第一个符合条件的结果，找不到数据时返回 <code>null</code></td>
+            </tr>
             <tr>
                 <th><code>firstOrFail($columns = ['*'])</code></th>
                 <td>返回第一个符合条件的结果，找不到数据时抛出 <code>\Illuminate\Database\Eloquent\ModelNotFoundException</code></td>
