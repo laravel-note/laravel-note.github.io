@@ -7,6 +7,12 @@
     <title>Eloquent ORM - Laravel 开发笔记</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="../../web/css/notes.css"/>
+    <style>
+        table p,
+        table ul {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 <main>
@@ -16,7 +22,7 @@
         <h2>什么是 ORM</h2>
         <p>ORM 即 Object-Relational Mapping 对象关系映射，作用是在【关系型数据库】和【对象】之间建立映射，这样在处理对象时就不用和复杂的 SQL 语句打交道，只需操作对象的属性或方法。</p>
         <p>面向对象是从软件工程发展而来，而关系数据库是从数学理论发展而来，两者的发展路径不同。
-            随着数据持久化成为软件项目的必然要素，为了让开发人员专注于业务，简化对数据的操作，ORM 应运而生。它的出现正是为了解决【面向对象】与【关系型数据库】之间存在的不匹配。</p>
+            随着数据持久化成为软件项目的必要因素，为了让开发人员专注于业务，简化数据操作，ORM 应运而生。它的出现正是为了解决【面向对象】与【关系型数据库】之间存在的不匹配。</p>
 
         <h2>Laravel 的 ORM</h2>
         <p>Laravel 封装了一套自己的 ORM，有 Model、Relationships、Collection 几个主要概念，基本是围绕 Model 对数据进行操作。</p>
@@ -103,15 +109,20 @@
 
         <h3>关联数据检索</h3>
 
-        <p>Laravel 为 Model 定义了专门的方法处理数据表关联。</p>
+        <p>Laravel 为 Model 定义了专门的方法处理数据表关联，用来获取与其关联的 Model 实例或者 Collection 实例。</p>
 
         <table class="list">
             <tr>
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-one">一对一</a>
                 </th>
                 <td>
-                    <code>hasOne($related, $foreignKey = null, $localKey = null)</code><br/>
-                    其 <code>getResults</code> 方法返回 Model
+                    <p><code>hasOne($related, $foreignKey = null, $localKey = null)</code></p>
+                    <ul>
+                        <li><code>$related</code> - 关联类类名</li>
+                        <li><code>$foreignKey</code> - 主类的数据表外键</li>
+                        <li><code>$localKey</code> - 关联类数据表的链接键（默认为主键）</li>
+                    </ul>
+                    <p>其 <code>getResults</code> 方法返回 Model</p>
                 </td>
             </tr>
             <tr>
@@ -119,39 +130,70 @@
                     <a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-many">一对多</a>
                 </th>
                 <td>
-                    <code>hasMany($related, $foreignKey = null, $localKey = null)</code><br/>
-                    其 <code>getResults</code> 方法返回 Collection
+                    <p><code>hasMany($related, $foreignKey = null, $localKey = null)</code></p>
+                    <ul>
+                        <li><code>$related</code> - 关联类类名</li>
+                        <li><code>$foreignKey</code> - 主类的数据表外键</li>
+                        <li><code>$localKey</code> - 关联类数据表的链接键（默认为主键）</li>
+                    </ul>
+                    <p>其 <code>getResults</code> 方法返回 Collection</p>
                 </td>
             </tr>
             <tr>
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-many-inverse">一对多
                     - 反向</a></th>
                 <td>
-                    <code>belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)</code><br/>
-                    其 <code>getResults</code> 方法返回 Model
+                    <p><code>belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)</code></p>
+                    <ul>
+                        <li><code>$related</code> - 关联类类名</li>
+                        <li><code>$foreignKey</code> - 关联类的数据表外键</li>
+                        <li><code>$ownerKey</code> - 主类的数据表链接键（默认为主键）</li>
+                        <li><code>$relation</code> - 为此关系命名（唯一）</li>
+                    </ul>
+                    <p>其 <code>getResults</code> 方法返回 Model</p>
                 </td>
             </tr>
             <tr>
                 <th><a target="_blank"
                        href="https://laravel.com/docs/5.5/eloquent-relationships#has-many-through">一对多链接</a></th>
                 <td>
-                    <code>hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null,
-                        $secondLocalKey = null)</code><br/>
-                    其 <code>getResults</code> 方法返回 Collection
+                    <p><code>hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null,
+                        $secondLocalKey = null)</code></p>
+                    <ul>
+                        <li><code>$related</code> - 关联类类名</li>
+                        <li><code>$through</code> - 中间类类名</li>
+                        <li><code>$firstKey</code> - 中间类的数据表与主类链接的外键</li>
+                        <li><code>$secondKey</code> - 关联类的数据表与中间类链接的外键</li>
+                        <li><code>$localKey</code> - 主类的数据表链接键（默认为主键）</li>
+                        <li><code>$secondLocalKey</code> - 中间类的数据表链接键（默认为主键）</li>
+                    </ul>
+                    <p>其 <code>getResults</code> 方法返回 Collection</p>
                 </td>
             </tr>
             <tr>
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#polymorphic-relations">一对多
                     - 多态关联</a></th>
                 <td>
-                    <ul style="margin: 0;">
+                    <ul>
                         <li>
-                            <code>morphTo($name = null, $type = null, $id = null)</code><br/>
-                            其 <code>getResults</code> 方法返回 Model
+                            <p><code>morphTo($name = null, $type = null, $id = null)</code></p>
+                            <ul>
+                                <li><code>$name</code> - 【态】名</li>
+                                <li><code>$type</code> - 指定数据表的关联类型字段名，默认为 <code>$name + '_type'</code></li>
+                                <li><code>$id</code> - 指定数据表的关联 ID 字段名，默认为 <code>$name + '_id'</code></li>
+                            </ul>
+                            <p> 其 <code>getResults</code> 方法返回 Model</p>
                         </li>
                         <li>
-                            <code>morphMany($related, $name, $type = null, $id = null, $localKey = null)</code><br/>
-                            其 <code>getResults</code> 方法返回 Collection
+                            <p><code>morphMany($related, $name, $type = null, $id = null, $localKey = null)</code></p>
+                            <ul>
+                                <li><code>$related</code> - 关联类类名</li>
+                                <li><code>$name</code> - 【态】名</li>
+                                <li><code>$type</code> - 指定数据表的关联类型字段名，默认为 <code>$name + '_type'</code></li>
+                                <li><code>$id</code> - 指定数据表的关联 ID 字段名，默认为 <code>$name + '_id'</code></li>
+                                <li><code>$localKey</code> - 主类的数据表链接键（默认为主键）</li>
+                            </ul>
+                            <p>其 <code>getResults</code> 方法返回 Collection</p>
                         </li>
                     </ul>
                 </td>
@@ -160,9 +202,18 @@
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#many-to-many">多对多</a>
                 </th>
                 <td>
-                    <code>belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null,
-                        $parentKey = null, $relatedKey = null, $relation = null)</code><br/>
-                    其 <code>getResults</code> 方法返回 Collection
+                    <p><code>belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null,
+                        $parentKey = null, $relatedKey = null, $relation = null)</code></p>
+                    <ul>
+                        <li><code>$related</code> - 关联类类名</li>
+                        <li><code>$table</code> - 中间表表名</li>
+                        <li><code>$foreignPivotKey</code> - 中间表与主类链接的外键</li>
+                        <li><code>$relatedPivotKey</code> - 中间表与关联类链接的外键</li>
+                        <li><code>$parentKey</code> - 主类的数据表链接键（默认为主键）</li>
+                        <li><code>$relatedKey</code> - 关联类的数据表链接键（默认为主键）</li>
+                        <li><code>$relation</code> - 为此关系命名（唯一）</li>
+                    </ul>
+                    <p>其 <code>getResults</code> 方法返回 Collection</p>
                 </td>
             </tr>
             <tr>
@@ -170,17 +221,36 @@
                        href="https://laravel.com/docs/5.5/eloquent-relationships#many-to-many-polymorphic-relations">多对多
                     - 多态关联</a></th>
                 <td>
-                    <ul style="margin: 0;">
+                    <ul>
                         <li>
-                            <code>morphToMany($related, $name, $table = null, $foreignPivotKey = null,
+                            <p><code>morphToMany($related, $name, $table = null, $foreignPivotKey = null,
                                 $relatedPivotKey = null, $parentKey = null,
-                                $relatedKey = null, $inverse = false)</code><br/>
-                            其 <code>getResults</code> 方法返回 Collection
+                                $relatedKey = null, $inverse = false)</code></p>
+                            <ul>
+                                <li><code>$related</code> - 关联类类名</li>
+                                <li><code>$name</code> - 【态】名</li>
+                                <li><code>$table</code> - 中间表表名</li>
+                                <li><code>$foreignPivotKey</code> - 中间表与主类链接的外键</li>
+                                <li><code>$relatedPivotKey</code> - 中间表与关联类链接的外键</li>
+                                <li><code>$parentKey</code> - 主类的数据表链接键（默认为主键）</li>
+                                <li><code>$relatedKey</code> - 关联类的数据表链接键（默认为主键）</li>
+                                <li><code>$inverse</code> -</li>
+                            </ul>
+                            <p> 其 <code>getResults</code> 方法返回Collection</p>
                         </li>
                         <li>
-                            <code>morphedByMany($related, $name, $table = null, $foreignPivotKey = null,
-                                $relatedPivotKey = null, $parentKey = null, $relatedKey = null)</code><br/>
-                            其 <code>getResults</code> 方法返回 Collection
+                            <p><code>morphedByMany($related, $name, $table = null, $foreignPivotKey = null,
+                                $relatedPivotKey = null, $parentKey = null, $relatedKey = null)</code></p>
+                            <ul>
+                                <li><code>$related</code> - 关联类类名</li>
+                                <li><code>$name</code> - 【态】名</li>
+                                <li><code>$table</code> - 中间表表名</li>
+                                <li><code>$foreignPivotKey</code> - 中间表与主类链接的外键</li>
+                                <li><code>$relatedPivotKey</code> - 中间表与关联类链接的外键</li>
+                                <li><code>$parentKey</code> - 主类的数据表链接键（默认为主键）</li>
+                                <li><code>$relatedKey</code> - 关联类的数据表链接键（默认为主键）</li>
+                            </ul>
+                            <p> 其 <code>getResults</code> 方法返回 Collection</p>
                         </li>
                     </ul>
                 </td>
@@ -215,7 +285,7 @@
             </tr>
             <tr>
                 <th><code>update(array $attributes = [], array $options = [])</code></th>
-                <td>相当于先 <code>fill($attributes)</code>，再 <code>save($options)</code></td>
+                <td>相当于先执行 <code>fill($attributes)</code>，再执行 <code>save($options)</code></td>
             </tr>
             <tr>
                 <th><code>push()</code></th>
@@ -223,11 +293,11 @@
             </tr>
         </table>
 
-        <p>也可以通过 Query Builder 的 <code>update(array $values)</code> 方法进行批量更新。</p>
+        <p>也可以通过 Query Builder 的 <code>update(array $values)</code> 方法根据指定条件批量更新。</p>
 
         <h3>魔术方法</h3>
         <p>Laravel 为 Model 定义了魔术方法 <code>__call</code> 和 <code>__callStatic</code>，这使一些不在 Model
-            类中直接定义的方法也得以执行。比如，下述方法实际是在 Query Builder 中定义的：</p>
+            类中直接定义的方法也得以执行。比如，下述方法实际是在 Query Builder 类中定义的：</p>
         <ul>
             <li><code>find</code></li>
             <li><code>findOrFail</code></li>
