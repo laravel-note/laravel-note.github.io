@@ -295,6 +295,130 @@
 
         <p>也可以通过 Query Builder 的 <code>update(array $values)</code> 方法根据指定条件批量更新。</p>
 
+        <h3>关联数据更新</h3>
+
+        <table>
+            <tr>
+                <th>模型</th>
+                <th>方法</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td rowspan="4">不限</td>
+                <td><code>save</code></td>
+                <td>
+                    <pre><code class="language-php">/** @var Comment $comment  Comment  Can be used to create new record */
+/** @var Post $post */
+$post->comments()->save($comment);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>saveMany</code></td>
+                <td>
+                    <pre><code class="language-php">/** @var Comment $commentA  Can be used to create new record */
+/** @var Comment $commentB  Can be used to create new record */
+/** @var Post $post */
+$post->comments()->saveMany([
+    $commentA,
+    $commentB,
+]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>create</code></td>
+                <td>
+                    <pre><code class="language-php">/** @var Post $post */
+$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>createMany</code></td>
+                <td>
+                    <p>一对多模型返回 Collection，多对多模型返回数组</p>
+                    <pre><code class="language-php">/** @var Post $post */
+$post->comments()->createMany([
+    ['message' => 'A new comment.'],
+    ['message' => 'Another new comment.'],
+]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">一对多 - 反向</td>
+                <td><code>associate</code></td>
+                <td>
+                    <p>添加关联</p>
+                    <pre><code class="language-php">/** @var User $user */
+/** @var Account $account */
+$user->account()->associate($account);
+$user->save();</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>dissociate</code></td>
+                <td>
+                    <p>删除关联</p>
+                    <pre><code class="language-php">$user->account()->dissociate();
+$user->save();</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">多对多</td>
+                <td><code>attach</code></td>
+                <td>
+                    <p>添加关联：<code>attach($id, array $attributes = [], $touch = true)</code></p>
+                    <pre><code class="language-php">/** @var User $user */
+/** @var int $roleId */
+$user->roles()->attach($roleId);
+
+/** @var mixed $expires */
+$user->roles()->attach($roleId, ['expires' => $expires]);
+
+/** @var int $roleIdA */
+/** @var int $roleIdB */
+/** @var int $expireA */
+$user->roles()->attach([
+    $roleIdA => ['expires' => $expireA],
+    $roleIdB
+]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>detach</code></td>
+                <td>
+                    <p>删除关联：<code>detach($ids = null, $touch = true)</code></p>
+                    <pre><code class="language-php">// Detach a single role from the user
+$user->roles()->detach($roleId);
+
+// Detach multiple roles from the user
+$user->roles()->detach([1, 2, 3]);
+
+// Detach all roles from the user
+$user->roles()->detach();</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>sync</code></td>
+                <td>
+                    <p>设定关联：<code>sync($ids, $detaching = true)</code></p>
+                    <pre><code class="language-php">/** @var User $user */
+/** @var int $roleIdA */
+/** @var int $expireA */
+/** @var int $roleIdB */
+$user->roles()->sync([
+    $roleIdA => ['expires' => $expireA],
+    $roleIdB
+]);</code></pre>
+                    <p>当 <code>$detaching</code> 为 <code>false</code> 时，该方法与 <code>attach</code> 的区别在于：</p>
+                    <ul>
+                        <li>防止添加重复关系</li>
+                        <li>还可用于更新除关联 ID 外的其他字段</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
         <h3>魔术方法</h3>
         <p>Laravel 为 Model 定义了魔术方法 <code>__call</code> 和 <code>__callStatic</code>，这使一些不在 Model
             类中直接定义的方法也得以执行。比如，下述方法实际是在 Query Builder 类中定义的：</p>
