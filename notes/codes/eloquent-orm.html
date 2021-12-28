@@ -66,8 +66,9 @@
             </tr>
         </table>
 
-        <p>可通过以下【静态方法】创建 Query Builder（<code>\Illuminate\Database\Eloquent\Builder</code>）：
-        </p>
+        <p>可通过以下【静态方法】创建 Query Builder（<code>\Illuminate\Database\Eloquent\Builder</code>）：<br/>
+            （关于 Query Builder 的具体应用参考
+            <a target="_blank" href="https://laravel.com/docs/5.5/queries">https://laravel.com/docs/5.5/queries</a>）</p>
         <table class="list">
             <tr>
                 <th><code>Flight::query()</code></th>
@@ -80,6 +81,10 @@
             <tr>
                 <th><code>Flight::where($column, $operator = null, $value = null, $boolean = 'and')</code></th>
                 <td>根据字段 <code>$column</code>、条件 <code>$operator</code>、值 <code>$value</code> 检索数据库</td>
+            </tr>
+            <tr>
+                <th><code>Flight::whereIn($column, $values, $boolean = 'and', $not = false)</code></th>
+                <td>根据字段 <code>$column</code>、值数组 <code>$values</code> 检索数据库</td>
             </tr>
         </table>
 
