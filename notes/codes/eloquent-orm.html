@@ -114,7 +114,11 @@
 
         <h3>关联数据检索</h3>
 
-        <p>Laravel 为 Model 定义了专门的方法处理数据表关联，用来获取与其关联的 Model 实例或者 Collection 实例。</p>
+        <p>Laravel 为 Model 定义了专门的方法处理数据表关联，用来获取与之关联的 Model 实例或者 Collection 实例。</p>
+
+        <p>值得注意的是，这些方法仅用于查找数据，并不能准确表示两个模型之间的关系。比如 <code>hasOne</code> 与 <code>belongsTo</code>
+            返回的都是一个 Model，但 <code>belongsTo</code> 表达的却可能是一对多的关系。
+            开发时应按业务逻辑选用意义正确的方法，而不是只看返回的结果。这样才能让代码有可读性，便于维护扩展。</p>
 
         <table class="list">
             <tr>
@@ -124,8 +128,8 @@
                     <p><code>hasOne($related, $foreignKey = null, $localKey = null)</code></p>
                     <ul>
                         <li><code>$related</code> - 关联类类名</li>
-                        <li><code>$foreignKey</code> - 主类的数据表外键</li>
-                        <li><code>$localKey</code> - 关联类数据表的链接键（默认为主键）</li>
+                        <li><code>$foreignKey</code> - 关联类的数据表外键</li>
+                        <li><code>$localKey</code> - 主类数据表的链接键（默认为主键）</li>
                     </ul>
                     <p>其 <code>getResults</code> 方法返回 Model</p>
                 </td>
@@ -151,8 +155,8 @@
                     <p><code>belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)</code></p>
                     <ul>
                         <li><code>$related</code> - 关联类类名</li>
-                        <li><code>$foreignKey</code> - 关联类的数据表外键</li>
-                        <li><code>$ownerKey</code> - 主类的数据表链接键（默认为主键）</li>
+                        <li><code>$foreignKey</code> - 主类的数据表外键</li>
+                        <li><code>$ownerKey</code> - 关联类的数据表链接键（默认为主键）</li>
                         <li><code>$relation</code> - 为此关系命名（唯一）</li>
                     </ul>
                     <p>其 <code>getResults</code> 方法返回 Model</p>
