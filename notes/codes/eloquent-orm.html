@@ -364,7 +364,7 @@ $user->save();</code></pre>
                 </td>
             </tr>
             <tr>
-                <td rowspan="3">多对多</td>
+                <td rowspan="6">多对多</td>
                 <td><code>attach</code></td>
                 <td>
                     <p>添加关联：<code>attach($id, array $attributes = [], $touch = true)</code></p>
@@ -415,6 +415,33 @@ $user->roles()->sync([
                         <li>防止添加重复关系</li>
                         <li>还可用于更新除关联 ID 外的其他字段</li>
                     </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><code>toggle</code></td>
+                <td>
+                    <p>切换关联</p>
+                    <pre><code class="language-php">$user->roles()->toggle([1, 2, 3]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>save</code></td>
+                <td>
+                    <p>保存关联表属性</p>
+                    <pre><code class="language-php">/** @var User $user */
+/** @var Role $role */
+/** @var mixed $expires */
+$user->roles()->save($role, ['expires' => $expires]);</code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td><code>updateExistingPivot</code></td>
+                <td>
+                    <p>更新关联表属性</p>
+                    <pre><code class="language-php">/** @var User $user */
+/** @var int $roleId */
+/** @var array $attributes */
+$user->roles()->updateExistingPivot($roleId, $attributes);</code></pre>
                 </td>
             </tr>
         </table>
