@@ -116,12 +116,6 @@
 
         <p>Laravel 为 Model 定义了专门的方法处理数据表关联，用来获取与之关联的 Model 实例或者 Collection 实例。</p>
 
-        <p>值得注意的是，这些方法仅用于查找数据，并不能准确表示两个模型之间的关系。比如 <code>hasOne</code> 与 <code>belongsTo</code>
-            返回的都是一个 Model，但 <code>belongsTo</code> 表达的却可能是一对多的关系。
-            开发时应按业务逻辑选用意义正确的方法，而不是只看返回的结果。这样才能让代码有可读性，便于维护扩展。</p>
-
-        <p>如何选择使用哪个方法：从正反两个方向，忽略这个关系之外与主 Model 相关的其它 Model，考虑主 Model 与关联 Model 之间的关系。</p>
-
         <table class="list">
             <tr>
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-one">一对一</a>
@@ -267,6 +261,28 @@
                 </td>
             </tr>
         </table>
+
+        <p>值得注意的是，这些方法仅用于查找数据，并不能准确表示两个模型之间的关系。比如 <code>hasOne</code> 与 <code>belongsTo</code>
+            返回的都是一个 Model，但 <code>belongsTo</code> 表达的却可能是一对多的关系。
+            开发时应按业务逻辑选用意义正确的方法，而不是只看返回的结果。这样才能让代码有可读性，便于维护扩展。</p>
+
+        <p>如何选择使用哪个方法：<strong>从正反两个方向，忽略这个关系之外与主 Model 相关的其它 Model，</strong>考虑主 Model 与关联 Model 之间的关系。</p>
+        <p>比如一个仓库转出记录同时有两个关联仓库（转出仓和转入仓），那么它与这两仓库的关系就应该分开考虑（<strong>忽略这个关系之外与主 Model 相关的其它 Model</strong>）：
+            每个仓库都可能有多条转出记录，而一条记录中只会有一个转出仓（<strong>正反两个方向</strong>），因此它们是一对多关系，通过记录 Model 检索出仓 Model 应使用
+            <code>belongsTo</code> 方法。</p>
+        <pre><code class="language-php">namespace App\Models\Warehouse;
+
+use App\Models\Warehouse;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Transfer extends Model
+{
+    public function fromWarehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class, 'from_warehouse_id');
+    }
+}</code></pre>
 
         <h3>数据更新</h3>
 
