@@ -120,6 +120,8 @@
             返回的都是一个 Model，但 <code>belongsTo</code> 表达的却可能是一对多的关系。
             开发时应按业务逻辑选用意义正确的方法，而不是只看返回的结果。这样才能让代码有可读性，便于维护扩展。</p>
 
+        <p>如何选择使用哪个方法：从正反两个方向，忽略这个关系之外与主 Model 相关的其它 Model，考虑主 Model 与关联 Model 之间的关系。</p>
+
         <table class="list">
             <tr>
                 <th><a target="_blank" href="https://laravel.com/docs/5.5/eloquent-relationships#one-to-one">一对一</a>
