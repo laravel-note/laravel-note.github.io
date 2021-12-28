@@ -284,6 +284,11 @@ class Transfer extends Model
     }
 }</code></pre>
 
+        <pre><code class="language-php">use App\Models\Warehouse\Transfer;
+
+$transfer = Transfer::find(1);
+$fromWarehouse = $transfer->fromWarehouse()->getResults();</code></pre>
+
         <h3>数据更新</h3>
 
         <p>Laravel 为 Model 定义了如下【静态方法】来更新数据库：</p>
