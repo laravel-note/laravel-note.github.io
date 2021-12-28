@@ -333,12 +333,13 @@ $fromWarehouse = $transfer->fromWarehouse()->getResults();</code></pre>
             <tr>
                 <th>模型</th>
                 <th>方法</th>
-                <th>描述</th>
+                <th>描述及示例</th>
             </tr>
             <tr>
                 <td rowspan="4">不限</td>
                 <td><code>save</code></td>
                 <td>
+                    <p>保存关联 Model，并关联到主 Model</p>
                     <pre><code class="language-php">/** @var Comment $comment  Comment  Can be used to create new record */
 /** @var Post $post */
 $post->comments()->save($comment);</code></pre>
@@ -347,6 +348,7 @@ $post->comments()->save($comment);</code></pre>
             <tr>
                 <td><code>saveMany</code></td>
                 <td>
+                    <p>保存多个关联 Model，并关联到主 Model</p>
                     <pre><code class="language-php">/** @var Comment $commentA  Can be used to create new record */
 /** @var Comment $commentB  Can be used to create new record */
 /** @var Post $post */
@@ -359,6 +361,7 @@ $post->comments()->saveMany([
             <tr>
                 <td><code>create</code></td>
                 <td>
+                    <p>为关联 Model 创建一条新记录，并关联到主 Model</p>
                     <pre><code class="language-php">/** @var Post $post */
 $comment = $post->comments()->create([
     'message' => 'A new comment.',
@@ -368,7 +371,7 @@ $comment = $post->comments()->create([
             <tr>
                 <td><code>createMany</code></td>
                 <td>
-                    <p>一对多模型返回 Collection，多对多模型返回数组</p>
+                    <p>为关联 Model 创建多条新记录，并关联到主 Model。一对多模型返回 Collection，多对多模型返回数组</p>
                     <pre><code class="language-php">/** @var Post $post */
 $post->comments()->createMany([
     ['message' => 'A new comment.'],
